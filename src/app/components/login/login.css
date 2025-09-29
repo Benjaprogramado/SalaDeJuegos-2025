@@ -1,0 +1,157 @@
+/* Especificidad alta para asegurar prioridad sobre estilos globales */
+app-login .login-container,
+.login-container {
+  min-height: calc(100vh - 200px);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2rem 1rem !important;
+  width: 100% !important;
+}
+
+/* Especificidad alta para la tarjeta */
+app-login .card,
+.login-container .card {
+  border: none !important;
+  border-radius: 15px !important;
+  max-width: 100% !important;
+  min-width: 320px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+/* Especificidad alta para el header */
+app-login .card-header,
+.login-container .card-header {
+  border-radius: 15px 15px 0 0 !important;
+  border-bottom: none !important;
+}
+
+/* Especificidad alta para botones */
+app-login .btn-link,
+.login-container .btn-link {
+  color: #007bff !important;
+  text-decoration: none !important;
+  padding: 0 !important;
+}
+
+app-login .btn-link:hover,
+.login-container .btn-link:hover {
+  text-decoration: underline !important;
+}
+
+/* Responsive styles para móviles */
+@media (max-width: 768px) {
+  app-login .login-container,
+  .login-container {
+    padding: 1rem 0.5rem !important;
+    min-height: calc(100vh - 150px) !important;
+  }
+  
+  app-login .card,
+  .login-container .card {
+    margin: 0 0.5rem !important;
+    border-radius: 10px !important;
+    min-width: 280px !important;
+  }
+  
+  app-login .card-header,
+  .login-container .card-header {
+    border-radius: 10px 10px 0 0 !important;
+    padding: 1rem !important;
+  }
+  
+  app-login .card-body,
+  .login-container .card-body {
+    padding: 1.25rem !important;
+  }
+  
+  app-login .card-header h4,
+  .login-container .card-header h4 {
+    font-size: 1.25rem !important;
+  }
+  
+  app-login .btn-link,
+  .login-container .btn-link {
+    font-size: 0.9rem !important;
+    word-break: break-word !important;
+  }
+  
+  app-login .d-grid .btn,
+  .login-container .d-grid .btn {
+    padding: 0.75rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  app-login .login-container,
+  .login-container {
+    padding: 0.5rem 0.25rem !important;
+  }
+  
+  app-login .card,
+  .login-container .card {
+    margin: 0 0.25rem !important;
+    border-radius: 8px !important;
+    min-width: 260px !important;
+  }
+  
+  app-login .card-header,
+  .login-container .card-header {
+    border-radius: 8px 8px 0 0 !important;
+    padding: 0.75rem !important;
+  }
+  
+  app-login .card-body,
+  .login-container .card-body {
+    padding: 1rem !important;
+  }
+  
+  app-login .card-header h4,
+  .login-container .card-header h4 {
+    font-size: 1.1rem !important;
+  }
+  
+  app-login .form-control,
+  .login-container .form-control {
+    padding: 0.75rem !important;
+    font-size: 1rem !important;
+  }
+  
+  app-login .btn,
+  .login-container .btn {
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
+  }
+  
+  app-login .btn-sm,
+  .login-container .btn-sm {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  app-login .btn-link,
+  .login-container .btn-link {
+    font-size: 0.85rem !important;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 375px) {
+  app-login .card-header h4,
+  .login-container .card-header h4 {
+    font-size: 1rem !important;
+  }
+  
+  app-login .form-label,
+  .login-container .form-label {
+    font-size: 0.9rem !important;
+  }
+  
+  app-login .btn-link,
+  .login-container .btn-link {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+  }
+}

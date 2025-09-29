@@ -1,1 +1,61 @@
-<p>login works!</p>
+<div class="login-container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white text-center">
+            <h4><i class="pi pi-user"></i> 
+              {{ isLoginMode() ? 'Iniciar Sesión' : 'Registro' }}
+            </h4>
+          </div>
+          
+          <div class="card-body">
+            <form (ngSubmit)="isLoginMode() ? login() : register()">
+              <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" 
+                       class="form-control" 
+                       [(ngModel)]="email"
+                       name="email"
+                       required>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Contraseña:</label>
+                <input type="password" 
+                       class="form-control" 
+                       [(ngModel)]="password"
+                       name="password"
+                       required>
+              </div>
+              
+              <button type="submit" 
+                      class="btn btn-primary w-100 mb-3"
+                      [disabled]="loading()">
+                <i class="pi pi-spin pi-spinner" *ngIf="loading()"></i>
+                {{ loading() ? 'Procesando...' : (isLoginMode() ? 'Ingresar' : 'Registrarse') }}
+              </button>
+            </form>
+            
+            <hr>
+            <p class="text-center mb-2">Acceso rápido:</p>
+            <div class="d-grid gap-2">
+              <button class="btn btn-outline-secondary btn-sm" 
+                      (click)="loginRapido('usuario1@test.com', '123456')">
+                <i class="pi pi-user"></i> Usuario 1
+              </button>
+              <button class="btn btn-outline-secondary btn-sm" 
+                      (click)="loginRapido('usuario2@test.com', '123456')">
+                <i class="pi pi-user"></i> Usuario 2
+              </button>
+            </div>
+            
+            <div class="text-center mt-3">
+              <button class="btn btn-link" (click)="toggleMode()">
+                {{ isLoginMode() ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

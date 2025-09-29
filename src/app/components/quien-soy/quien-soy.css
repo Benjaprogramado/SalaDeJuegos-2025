@@ -1,0 +1,27 @@
+.quien-soy-container {
+    padding: 2rem 0;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 15px;
+  }
+  
+  .card-header {
+    border-radius: 15px 15px 0 0 !important;
+    border-bottom: none;
+  }
+  
+  .img-fluid.rounded-circle {
+    border: 3px solid #e9ecef;
+  }
+  
+  .btn-success {
+    background-color: #198754;
+    border-color: #198754;
+  }
+  
+  .btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
+  }

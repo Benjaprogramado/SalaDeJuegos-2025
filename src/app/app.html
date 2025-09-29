@@ -5,12 +5,12 @@
         <i class="pi pi-gamepad-2"></i> Sala de Juegos
       </a>
       
-      <!-- <div class="navbar-nav ms-auto" *ngIf="user()">
+      <div class="navbar-nav ms-auto" *ngIf="user()">
         <span class="nav-text me-3">Bienvenido, {{user()?.email}}</span>
         <button class="btn btn-outline-light btn-sm" (click)="logout()">
           <i class="pi pi-sign-out"></i> Salir
         </button>
-      </div> -->
+      </div>
       
       <div class="navbar-nav ms-auto" *ngIf="!user()">
         <a class="nav-link" routerLink="/login">Login</a>
@@ -29,4 +29,3 @@
     </div>
   </footer>
 </div>
-

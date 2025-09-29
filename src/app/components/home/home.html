@@ -1,16 +1,72 @@
-<div class="container">
-  <h1>Bienvenido a la Sala de Juegos</h1>
-  
-  <!-- Prueba de iconos -->
-  <div class="icon-test">
-    <h3>Prueba de Iconos:</h3>
-    <img src="assets/icons/user.png" alt="Usuario" style="width: 50px; height: 50px; margin: 10px;">
-    <img src="assets/icons/favicon.png" alt="Favicon" style="width: 50px; height: 50px; margin: 10px;">
-    <img src="assets/icons/add-user_icon-icons.com_65128.png" alt="Agregar Usuario" style="width: 50px; height: 50px; margin: 10px;">
+<div class="home-container">
+  <div class="hero-section bg-primary text-white py-5 mb-4">
+    <div class="container text-center">
+      <h1 class="display-4"><i class="pi pi-gamepad-2"></i> Sala de Juegos</h1>
+      <p class="lead">Pon a prueba tus habilidades con nuestros juegos</p>
+    </div>
   </div>
   
-  <button (click)="logout()" class="btn btn-danger">
-    <img src="assets/icons/4115235-exit-logout-sign-out_114030.png" alt="Salir" style="width: 20px; height: 20px; margin-right: 5px;">
-    Cerrar Sesión
-  </button>
+  <div class="container">
+    <div class="row">
+      <!-- Juegos -->
+      <div class="col-md-8">
+        <h3 class="mb-4"><i class="pi pi-trophy"></i> Juegos Disponibles</h3>
+        
+        <div class="row g-3">
+          <div class="col-md-6" *ngFor="let juego of juegos()">
+            <div class="card h-100 game-card" (click)="navegarAJuego(juego.ruta)">
+              <div class="card-body text-center">
+                <i [class]="juego.icono + ' display-4 text-primary mb-3'"></i>
+                <h5 class="card-title">{{juego.nombre}}</h5>
+                <p class="card-text">{{juego.descripcion}}</p>
+                <button class="btn btn-primary">
+                  <i class="pi pi-play"></i> Jugar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sidebar -->
+      <div class="col-md-4">
+        <div class="card mb-3">
+          <div class="card-header bg-info text-white">
+            <h5><i class="pi pi-user"></i> Mi Perfil</h5>
+          </div>
+          <div class="card-body" *ngIf="user()">
+            <p><strong>Email:</strong> {{user()?.email}}</p>
+            <p><strong>Último ingreso:</strong> {{user()?.metadata?.lastSignInTime | date:'short'}}</p>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header bg-warning text-dark">
+            <h5><i class="pi pi-chart-bar"></i> Mis Estadísticas</h5>
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <button class="btn btn-outline-primary" routerLink="/resultados">
+                <i class="pi pi-list"></i> Ver Resultados
+              </button>
+              <button class="btn btn-outline-success" routerLink="/encuesta">
+                <i class="pi pi-file-edit"></i> Encuesta
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header bg-secondary text-white">
+            <h5><i class="pi pi-comments"></i> Chat</h5>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-outline-secondary w-100" routerLink="/chat">
+              <i class="pi pi-comment"></i> Ir al Chat
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

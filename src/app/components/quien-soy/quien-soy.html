@@ -1,1 +1,104 @@
-<p>quien-soy works!</p>
+<div class="quien-soy-container">
+  <div class="container">
+    <div class="row">
+      <!-- Información personal -->
+      <div class="col-lg-4 mb-4">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white text-center">
+            <h4><i class="pi pi-user"></i> Información Personal</h4>
+          </div>
+          <div class="card-body text-center">
+            <img src="assets/images/mi-foto.jpg" 
+                 alt="Mi foto" 
+                 class="img-fluid rounded-circle mb-3"
+                 style="width: 150px; height: 150px; object-fit: cover;">
+            
+            <h5>{{datosPersonales().nombre}} {{datosPersonales().apellido}}</h5>
+            <p class="text-muted">{{datosPersonales().carrera}}</p>
+            <p><strong>Edad:</strong> {{datosPersonales().edad}} años</p>
+            <p><strong>Universidad:</strong> UTN</p>
+            <p><strong>Materia:</strong> Laboratorio IV</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mi juego propio -->
+      <div class="col-lg-8 mb-4">
+        <div class="card shadow">
+          <div class="card-header bg-success text-white">
+            <h4><i class="pi pi-gamepad-2"></i> Mi Juego: {{juegoPropio().nombre}}</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <h5>Descripción:</h5>
+                <p>{{juegoPropio().descripcion}}</p>
+                
+                <h5>¿Cómo se juega?</h5>
+                <ol>
+                  <li *ngFor="let instruccion of juegoPropio().instrucciones">
+                    {{instruccion}}
+                  </li>
+                </ol>
+                
+                <h5>Objetivo:</h5>
+                <p>{{juegoPropio().objetivo}}</p>
+              </div>
+              
+              <div class="col-md-4 text-center">
+                <img src="assets/images/adivinador-preview.png" 
+                     alt="Preview del juego" 
+                     class="img-fluid rounded mb-3">
+                
+                <button class="btn btn-success" routerLink="/juegos/adivinador">
+                  <i class="pi pi-play"></i> ¡Jugar ahora!
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Información adicional -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card shadow">
+          <div class="card-header bg-info text-white">
+            <h4><i class="pi pi-info-circle"></i> Sobre este Proyecto</h4>
+          </div>
+          <div class="card-body">
+            <p>
+              Esta Sala de Juegos fue desarrollada como trabajo práctico para la materia 
+              <strong>Laboratorio de Computación IV</strong> de la Universidad Tecnológica Nacional.
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Tecnologías utilizadas:</h5>
+                <ul>
+                  <li>Angular 20</li>
+                  <li>Firebase v11 (Auth + Firestore)</li>
+                  <li>Bootstrap 5</li>
+                  <li>PrimeNG</li>
+                  <li>TypeScript</li>
+                </ul>
+              </div>
+              
+              <div class="col-md-6">
+                <h5>Funcionalidades implementadas:</h5>
+                <ul>
+                  <li>Sistema de autenticación</li>
+                  <li>4 juegos interactivos</li>
+                  <li>Chat en tiempo real</li>
+                  <li>Sistema de encuestas</li>
+                  <li>Estadísticas y resultados</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
