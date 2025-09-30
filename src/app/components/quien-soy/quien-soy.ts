@@ -10,10 +10,10 @@ import { CommonModule } from '@angular/common';
 })
 export class QuienSoy {
   datosPersonales = signal({
-    nombre: "Tu Nombre",
-    apellido: "Tu Apellido", 
-    edad: 25,
-    carrera: "Ingeniería en Sistemas"
+    nombre: "Benjamin",
+    apellido: "Schell", 
+    edad: 37,
+    carrera: "TUP"
   });
   
   juegoPropio = signal({
