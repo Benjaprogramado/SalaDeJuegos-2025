@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { Auth, authState, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AlertService } from '../../services/alert';
 
 @Component({
   selector: 'app-home',
@@ -43,7 +44,7 @@ export class Home implements OnInit, OnDestroy {
     }
   ]);
 
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(private auth: Auth, private router: Router, private alertService: AlertService) {}
 
   ngOnInit() {
     // Usar authState() observable en lugar de onAuthStateChanged
@@ -64,11 +65,15 @@ export class Home implements OnInit, OnDestroy {
   }
 
   async logout() {
+    const result = await this.alertService.confirm('¿Cerrar sesión?', '¿Estás seguro?');
+    if (result.isConfirmed) {
     try {
       await signOut(this.auth);
+      this.alertService.success('Sesión cerrada');
       this.router.navigate(['/login']);
     } catch (error) {
-      console.error('Error al cerrar sesión:', error);
+      this.alertService.error('Error', 'No se pudo cerrar sesión');
+      }
     }
   }
 

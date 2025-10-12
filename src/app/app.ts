@@ -3,6 +3,7 @@ import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Auth, authState, signOut } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
+import { AlertService } from './services/alert';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class App implements OnInit, OnDestroy {
   private userSignal = signal<any>(null);
   private authSubscription?: Subscription;
 
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(private auth: Auth, private router: Router, private alertService: AlertService) {}
 
   ngOnInit() {
     // Suscribirse al estado de autenticación
@@ -39,12 +40,15 @@ export class App implements OnInit, OnDestroy {
 
   // Método para logout
   async logout(): Promise<void> {
-    try {
-      await signOut(this.auth);
-      this.router.navigate(['/login']);
-      console.log('Sesión cerrada exitosamente');
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
+    const result = await this.alertService.confirm('¿Cerrar sesión?', '¿Estás seguro?');
+    if (result.isConfirmed) {
+      try {
+        await signOut(this.auth);
+        this.alertService.success('Sesión cerrada', 'Hasta pronto');
+        this.router.navigate(['/login']);
+      } catch (error) {
+        this.alertService.error('Error', 'No se pudo cerrar sesión');
+      }
     }
   }
 }
