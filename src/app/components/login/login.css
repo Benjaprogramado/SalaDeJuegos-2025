@@ -7,6 +7,22 @@ app-login .login-container,
   justify-content: center !important;
   padding: 2rem 1rem !important;
   width: 100% !important;
+  margin: 0 !important;
+}
+
+/* Corregir márgenes de row para centrado correcto */
+app-login .row,
+.login-container .row {
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Asegurar que las columnas estén centradas */
+app-login .row > div,
+.login-container .row > div {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
 }
 
 /* Especificidad alta para la tarjeta */

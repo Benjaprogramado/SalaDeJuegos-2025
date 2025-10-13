@@ -40,6 +40,7 @@ export class Login {
     this.loading.set(true);
     try {
       await createUserWithEmailAndPassword(this.auth, this.email(), this.password());
+      await this.alertService.success('¡Bienvenido!', 'Te has registrado correctamente');
       this.router.navigate(['/home']);
     } catch (error: any) {
       // Mostrar mensaje de error con SweetAlert2
