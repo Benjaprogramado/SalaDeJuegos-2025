@@ -1,0 +1,93 @@
+.resultados-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+    padding: 2rem 0;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 20px;
+  }
+  
+  .card-header {
+    border-radius: 20px 20px 0 0 !important;
+    padding: 1.5rem;
+  }
+  
+  .stat-card {
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .stat-card i {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-card h4 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+  }
+  
+  .stat-card p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+  
+  .btn-group {
+    flex-wrap: wrap;
+  }
+  
+  .btn-group .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .table-responsive {
+    max-height: 600px;
+    overflow-y: auto;
+  }
+  
+  .table {
+    margin: 0;
+  }
+  
+  .table th {
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
+    z-index: 10;
+    font-weight: 600;
+  }
+  
+  .table tbody tr {
+    transition: background-color 0.2s ease;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #e7f3ff;
+  }
+  
+  @media (max-width: 768px) {
+    .btn-group .btn {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.6rem;
+    }
+    
+    .stat-card h4 {
+      font-size: 2rem;
+    }
+    
+    .stat-card i {
+      font-size: 2rem;
+    }
+  }

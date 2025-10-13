@@ -1,1 +1,164 @@
-<p>encuesta works!</p>
+<div class="encuesta-container">
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg">
+            <div class="card-header bg-warning text-dark text-center">
+              <h3><i class="pi pi-file-edit"></i> Encuesta de Satisfacción</h3>
+            </div>
+            
+            <div class="card-body">
+              <!-- Ya respondió la encuesta -->
+              <div *ngIf="yaRespondioEncuesta()" class="text-center">
+                <div class="alert alert-success">
+                  <i class="pi pi-check-circle" style="font-size: 3rem;"></i>
+                  <h4 class="mt-3">¡Gracias por tu opinión!</h4>
+                  <p>Ya has completado la encuesta anteriormente.</p>
+                </div>
+                
+                <button class="btn btn-primary" (click)="volverAlHome()">
+                  <i class="pi pi-home"></i> Volver al inicio
+                </button>
+              </div>
+              
+              <!-- Formulario de encuesta -->
+              <div *ngIf="!yaRespondioEncuesta()">
+                <form (ngSubmit)="enviarEncuesta()">
+                  <!-- Edad -->
+                  <div class="mb-4">
+                    <label class="form-label">¿Cuál es tu edad? *</label>
+                    <input type="number" 
+                           class="form-control" 
+                           [(ngModel)]="edad"
+                           name="edad"
+                           min="10"
+                           max="120"
+                           required>
+                  </div>
+                  
+                  <!-- Juego favorito -->
+                  <div class="mb-4">
+                    <label class="form-label">¿Cuál es tu juego favorito? *</label>
+                    <select class="form-select" 
+                            [(ngModel)]="juegoFavorito"
+                            name="juegoFavorito"
+                            required>
+                      <option value="">Selecciona un juego</option>
+                      <option *ngFor="let juego of juegosDisponibles" [value]="juego">
+                        {{juego}}
+                      </option>
+                    </select>
+                  </div>
+                  
+                  <!-- Calificación -->
+                  <div class="mb-4">
+                    <label class="form-label">¿Cómo calificarías la sala de juegos? *</label>
+                    <div class="calificacion-estrellas">
+                      <i *ngFor="let star of [1,2,3,4,5]" 
+                         class="pi"
+                         [class.pi-star-fill]="star <= calificacion()"
+                         [class.pi-star]="star > calificacion()"
+                         (click)="setCalificacion(star)"
+                         [style.color]="star <= calificacion() ? '#ffc107' : '#dee2e6'"
+                         style="font-size: 2rem; cursor: pointer; margin: 0 0.2rem;"></i>
+                    </div>
+                    <small class="text-muted d-block mt-2">
+                      {{calificacion() > 0 ? calificacion() + ' estrellas' : 'Selecciona una calificación'}}
+                    </small>
+                  </div>
+                  
+                  <!-- Volvería a jugar -->
+                  <div class="mb-4">
+                    <label class="form-label">¿Volverías a jugar? *</label>
+                    <div class="btn-group w-100" role="group">
+                      <input type="radio" 
+                             class="btn-check" 
+                             id="volverSi" 
+                             name="volveria" 
+                             value="Sí"
+                             [(ngModel)]="volveriaJugar">
+                      <label class="btn btn-outline-success" for="volverSi">Sí</label>
+                      
+                      <input type="radio" 
+                             class="btn-check" 
+                             id="volverTalVez" 
+                             name="volveria" 
+                             value="Tal vez"
+                             [(ngModel)]="volveriaJugar">
+                      <label class="btn btn-outline-warning" for="volverTalVez">Tal vez</label>
+                      
+                      <input type="radio" 
+                             class="btn-check" 
+                             id="volverNo" 
+                             name="volveria" 
+                             value="No"
+                             [(ngModel)]="volveriaJugar">
+                      <label class="btn btn-outline-danger" for="volverNo">No</label>
+                    </div>
+                  </div>
+                  
+                  <!-- Recomendaría -->
+                  <div class="mb-4">
+                    <label class="form-label">¿Recomendarías esta sala de juegos? *</label>
+                    <div class="btn-group w-100" role="group">
+                      <input type="radio" 
+                             class="btn-check" 
+                             id="recomSi" 
+                             name="recomendaria" 
+                             value="Sí"
+                             [(ngModel)]="recomendaria">
+                      <label class="btn btn-outline-success" for="recomSi">Sí</label>
+                      
+                      <input type="radio" 
+                             class="btn-check" 
+                             id="recomTalVez" 
+                             name="recomendaria" 
+                             value="Tal vez"
+                             [(ngModel)]="recomendaria">
+                      <label class="btn btn-outline-warning" for="recomTalVez">Tal vez</label>
+                      
+                      <input type="radio" 
+                             class="btn-check" 
+                             id="recomNo" 
+                             name="recomendaria" 
+                             value="No"
+                             [(ngModel)]="recomendaria">
+                      <label class="btn btn-outline-danger" for="recomNo">No</label>
+                    </div>
+                  </div>
+                  
+                  <!-- Sugerencias -->
+                  <div class="mb-4">
+                    <label class="form-label">Sugerencias o comentarios (opcional)</label>
+                    <textarea class="form-control" 
+                              [(ngModel)]="sugerencias"
+                              name="sugerencias"
+                              rows="4"
+                              maxlength="500"
+                              placeholder="Cuéntanos tu experiencia..."></textarea>
+                    <small class="text-muted">Máximo 500 caracteres</small>
+                  </div>
+                  
+                  <!-- Botones -->
+                  <div class="text-center">
+                    <button type="submit" 
+                            class="btn btn-primary me-2"
+                            [disabled]="cargando()">
+                      <i class="pi" [class.pi-spin]="cargando()" [class.pi-spinner]="cargando()" [class.pi-send]="!cargando()"></i>
+                      {{cargando() ? 'Enviando...' : 'Enviar Encuesta'}}
+                    </button>
+                    <button type="button" 
+                            class="btn btn-secondary" 
+                            (click)="volverAlHome()"
+                            [disabled]="cargando()">
+                      <i class="pi pi-times"></i> Cancelar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

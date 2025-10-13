@@ -37,6 +37,18 @@ export const routes: Routes = [
        loadComponent: () => import('./components/juegos/adivinador/adivinador')
          .then(m => m.AdivinadorComponent)
      },
-    
+     { 
+       path: 'chat', 
+       loadComponent: () => import('./components/chat/chat')
+         .then(m => m.ChatComponent)
+     },
+     {path: 'resultados', 
+      loadComponent: () => import('./components/resultados/resultados')
+        .then(m => m.ResultadosComponent)
+     },
+     {path: 'encuesta', 
+      loadComponent: () => import('./components/encuesta/encuesta')
+        .then(m => m.EncuestaComponent)
+     },
     { path: '**', redirectTo: '/home' }
 ];
