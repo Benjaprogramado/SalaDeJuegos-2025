@@ -80,7 +80,7 @@ export class EncuestaComponent implements OnInit {
   
   async enviarEncuesta() {
     // Validaciones
-    if (!this.edad() || this.edad()! < 10 || this.edad()! > 120) {
+    if (!this.edad() || this.edad()! < 18 || this.edad()! > 99) {
       await this.alertService.warning('Atención', 'Ingresa una edad válida');
       return;
     }
