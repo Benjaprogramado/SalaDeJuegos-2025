@@ -37,6 +37,15 @@ export class AlertService {
     });
   }
 
+  info(title: string, text?: string) {
+    return Swal.fire({
+      icon: 'info',
+      title,
+      text,
+      confirmButtonColor: '#3085d6'
+    });
+  }
+
   confirm(title: string, text?: string) {
     return Swal.fire({
       title,

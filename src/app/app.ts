@@ -16,14 +16,16 @@ export class App implements OnInit, OnDestroy {
   private userSignal = signal<any>(null);
   private authSubscription?: Subscription;
 
-  constructor(private auth: Auth, private router: Router, private alertService: AlertService) {}
-
-  ngOnInit() {
-    // Suscribirse al estado de autenticación
+  constructor(private auth: Auth, private router: Router, private alertService: AlertService) {
+    // Suscribirse al estado de autenticación en el constructor (contexto de inyección)
     this.authSubscription = authState(this.auth).subscribe((user) => {
       this.userSignal.set(user);
       console.log('Estado de autenticación actualizado:', user?.email || 'Sin usuario');
     });
+  }
+
+  ngOnInit() {
+    // Hook de ciclo de vida vacío - la suscripción ya está en el constructor
   }
 
   ngOnDestroy() {

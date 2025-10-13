@@ -44,10 +44,8 @@ export class Home implements OnInit, OnDestroy {
     }
   ]);
 
-  constructor(private auth: Auth, private router: Router, private alertService: AlertService) {}
-
-  ngOnInit() {
-    // Usar authState() observable en lugar de onAuthStateChanged
+  constructor(private auth: Auth, private router: Router, private alertService: AlertService) {
+    // Usar authState() observable en el constructor (contexto de inyección)
     this.authSubscription = authState(this.auth).subscribe((user) => {
       this.user.set(user);
       console.log('Usuario actual:', user);
@@ -55,6 +53,10 @@ export class Home implements OnInit, OnDestroy {
         this.router.navigate(['/login']);
       }
     });
+  }
+
+  ngOnInit() {
+    // Hook de ciclo de vida vacío - la suscripción ya está en el constructor
   }
 
   ngOnDestroy() {

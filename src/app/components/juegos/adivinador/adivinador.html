@@ -1,0 +1,83 @@
+<div class="juego-container">
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg">
+            <div class="card-header bg-warning text-dark text-center">
+              <h3><i class="pi pi-calculator"></i> Adivinador de Números</h3>
+              <p class="mb-0">Intentos restantes: {{intentosRestantes()}}</p>
+            </div>
+            
+            <div class="card-body">
+              <!-- Información del rango -->
+              <div class="alert alert-info text-center">
+                <h5>Rango actual: {{rangoMin()}} - {{rangoMax()}}</h5>
+              </div>
+              
+              <!-- Pista actual -->
+              <div class="pista-actual text-center mb-4">
+                <h4 [class.text-success]="gano()" 
+                    [class.text-danger]="juegoTerminado() && !gano()"
+                    [class.text-primary]="!juegoTerminado()">
+                  {{pista()}}
+                </h4>
+              </div>
+              
+              <!-- Input de intento -->
+              <div *ngIf="!juegoTerminado()" class="mb-4">
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="input-group input-group-lg">
+                      <input type="number" 
+                             class="form-control" 
+                             [(ngModel)]="intentoUsuario"
+                             [min]="rangoMin()"
+                             [max]="rangoMax()"
+                             placeholder="Ingresa un número"
+                             (keyup.enter)="adivinar()">
+                      <button class="btn btn-primary" 
+                              (click)="adivinar()"
+                              [disabled]="intentoUsuario === null">
+                        <i class="pi pi-send"></i> Adivinar
+                      </button>
+                    </div>
+                    <small class="text-muted">Presiona Enter para adivinar</small>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Historial de intentos -->
+              <div *ngIf="intentos().length > 0" class="mb-4">
+                <h5 class="text-center mb-3">Historial de Intentos</h5>
+                <div class="intentos-historial">
+                  <div *ngFor="let intento of intentos(); let i = index" 
+                       class="intento-item"
+                       [class.intento-correcto]="intento.pista.includes('CORRECTO')">
+                    <span class="intento-numero">Intento {{i + 1}}</span>
+                    <span class="intento-valor">{{intento.numero}}</span>
+                    <span class="intento-pista">{{intento.pista}}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Resultado final -->
+              <div *ngIf="juegoTerminado()" class="text-center mt-4">
+                <div class="alert" [class.alert-success]="gano()" [class.alert-danger]="!gano()">
+                  <h4 *ngIf="gano()"><i class="pi pi-trophy"></i> ¡Felicitaciones!</h4>
+                  <h4 *ngIf="!gano()"><i class="pi pi-times-circle"></i> Fin del Juego</h4>
+                  <p *ngIf="!gano()">El número secreto era: <strong>{{numeroSecreto()}}</strong></p>
+                </div>
+                
+                <button class="btn btn-primary me-2" (click)="iniciarJuego()">
+                  <i class="pi pi-refresh"></i> Jugar de nuevo
+                </button>
+                <button class="btn btn-secondary" (click)="volverAlHome()">
+                  <i class="pi pi-home"></i> Volver al inicio
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

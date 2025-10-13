@@ -1,0 +1,89 @@
+.juego-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    padding: 2rem 0;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 20px;
+  }
+  
+  .card-header {
+    border-radius: 20px 20px 0 0 !important;
+    padding: 1.5rem;
+  }
+  
+  .carta {
+    width: 140px;
+    height: 200px;
+    border: 3px solid #333;
+    border-radius: 15px;
+    background: white;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+    color: black;
+  }
+  
+  .carta-red {
+    color: red !important;
+  }
+  
+  .carta:hover {
+    transform: scale(1.05);
+  }
+  
+  .carta-valor {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .carta-palo {
+    font-size: 48px;
+    text-align: center;
+    margin: auto;
+  }
+  
+  .carta-valor-abajo {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: right;
+    transform: rotate(180deg);
+  }
+  
+  .botones-decision .btn {
+    min-width: 140px;
+    font-weight: bold;
+    padding: 12px 24px;
+  }
+  
+  @media (max-width: 768px) {
+    .carta {
+      width: 100px;
+      height: 140px;
+      padding: 10px;
+    }
+    
+    .carta-valor {
+      font-size: 20px;
+    }
+    
+    .carta-palo {
+      font-size: 32px;
+    }
+    
+    .carta-valor-abajo {
+      font-size: 20px;
+    }
+    
+    .botones-decision .btn {
+      min-width: 100px;
+      padding: 8px 16px;
+    }
+  }

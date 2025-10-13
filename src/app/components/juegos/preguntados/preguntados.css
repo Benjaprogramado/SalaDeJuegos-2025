@@ -1,0 +1,87 @@
+.juego-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    padding: 2rem 0;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 20px;
+  }
+  
+  .card-header {
+    border-radius: 20px 20px 0 0 !important;
+    padding: 1.5rem;
+  }
+  
+  .img-pregunta {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    object-fit: cover;
+  }
+  
+  .respuesta-card {
+    background: white;
+    border: 3px solid #dee2e6;
+    border-radius: 12px;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .respuesta-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    border-color: #007bff;
+  }
+  
+  .respuesta-card.seleccionada {
+    border-color: #007bff;
+    background-color: #e7f3ff;
+  }
+  
+  .respuesta-card.correcta {
+    border-color: #28a745;
+    background-color: #d4edda;
+    animation: pulse-correct 0.5s ease;
+  }
+  
+  .respuesta-card.incorrecta {
+    border-color: #dc3545;
+    background-color: #f8d7da;
+    animation: shake 0.5s ease;
+  }
+  
+  .respuesta-contenido {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  @keyframes pulse-correct {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+  }
+  
+  @media (max-width: 768px) {
+    .img-pregunta {
+      max-height: 200px;
+    }
+    
+    .respuesta-card {
+      padding: 1rem;
+    }
+    
+    .respuesta-contenido {
+      font-size: 1rem;
+    }
+  }

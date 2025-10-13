@@ -1,0 +1,63 @@
+<div class="juego-container">
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg">
+            <div class="card-header bg-dark text-white text-center">
+              <h3><i class="pi pi-bookmark"></i> Ahorcado</h3>
+              <p class="mb-0">Intentos restantes: {{maxIntentos() - intentosFallidos()}}</p>
+            </div>
+            
+            <div class="card-body">
+              <!-- Dibujo del ahorcado -->
+              <div class="text-center mb-4">
+                <pre class="ahorcado-dibujo">{{getAhorcadoDibujo()}}</pre>
+              </div>
+              
+              <!-- Palabra oculta -->
+              <div class="text-center mb-4">
+                <h2 class="palabra-secreta">
+                  <span *ngFor="let letra of palabraOculta().split(''); let i = index" class="letra-box">
+                    {{letra}}
+                  </span>
+                </h2>
+              </div>
+              
+              <!-- Teclado virtual -->
+              <div class="teclado-virtual mb-4" *ngIf="!juegoTerminado()">
+                <div class="row g-2 justify-content-center">
+                  <div class="col-auto" *ngFor="let letra of abecedario">
+                    <button 
+                      class="btn btn-letra"
+                      [class.btn-success]="letrasUsadas().includes(letra) && palabraSecreta().includes(letra)"
+                      [class.btn-danger]="letrasUsadas().includes(letra) && !palabraSecreta().includes(letra)"
+                      [class.btn-outline-primary]="!letrasUsadas().includes(letra)"
+                      [disabled]="letrasUsadas().includes(letra)"
+                      (click)="seleccionarLetra(letra)">
+                      {{letra}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Resultado final -->
+              <div class="text-center mt-4" *ngIf="juegoTerminado()">
+                <div class="alert" [class.alert-success]="gano()" [class.alert-danger]="!gano()">
+                  <h4 *ngIf="gano()"><i class="pi pi-check-circle"></i> ¡Ganaste!</h4>
+                  <h4 *ngIf="!gano()"><i class="pi pi-times-circle"></i> ¡Perdiste!</h4>
+                  <p *ngIf="!gano()">La palabra era: <strong>{{palabraSecreta()}}</strong></p>
+                </div>
+                
+                <button class="btn btn-primary me-2" (click)="iniciarJuego()">
+                  <i class="pi pi-refresh"></i> Jugar de nuevo
+                </button>
+                <button class="btn btn-secondary" (click)="volverAlHome()">
+                  <i class="pi pi-home"></i> Volver al inicio
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

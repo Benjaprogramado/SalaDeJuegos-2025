@@ -1,0 +1,73 @@
+<div class="juego-container">
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg">
+            <div class="card-header bg-success text-white text-center">
+              <h3><i class="pi pi-th-large"></i> Mayor o Menor</h3>
+              <p class="mb-0">Puntaje: {{puntaje()}} | Cartas restantes: {{mazo().length}}</p>
+            </div>
+            
+            <div class="card-body text-center">
+              <!-- Carta actual -->
+              <div class="carta-actual mb-4" *ngIf="cartaActual()">
+                <div class="carta" [class.carta-red]="cartaActual()!.color === 'red'">
+                  <div class="carta-valor">{{cartaActual()!.valor}}</div>
+                  <div class="carta-palo">{{cartaActual()!.palo}}</div>
+                  <div class="carta-valor-abajo">{{cartaActual()!.valor}}</div>
+                </div>
+              </div>
+              
+              <!-- Pregunta y botones -->
+              <div *ngIf="!juegoTerminado() && !mostrarSiguiente()" class="mb-4">
+                <h4 class="mb-4">¿La siguiente carta será mayor o menor?</h4>
+                
+                <div class="botones-decision">
+                  <button class="btn btn-danger btn-lg me-3" (click)="adivinar(false)">
+                    <i class="pi pi-arrow-down"></i> MENOR
+                  </button>
+                  <button class="btn btn-primary btn-lg" (click)="adivinar(true)">
+                    <i class="pi pi-arrow-up"></i> MAYOR
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Siguiente carta (después de adivinar) -->
+              <div *ngIf="mostrarSiguiente() && !juegoTerminado()" class="mb-4">
+                <h5>La siguiente carta es:</h5>
+                <div class="carta mt-3" [class.carta-red]="siguienteCarta()!.color === 'red'">
+                  <div class="carta-valor">{{siguienteCarta()!.valor}}</div>
+                  <div class="carta-palo">{{siguienteCarta()!.palo}}</div>
+                  <div class="carta-valor-abajo">{{siguienteCarta()!.valor}}</div>
+                </div>
+                
+                <div class="alert mt-3" [class.alert-success]="acierto()" [class.alert-danger]="!acierto()">
+                  <span *ngIf="acierto()">¡Correcto! +1 punto</span>
+                  <span *ngIf="!acierto()">¡Incorrecto! Fin del juego</span>
+                </div>
+                
+                <button *ngIf="acierto()" class="btn btn-success mt-3" (click)="continuarJuego()">
+                  <i class="pi pi-arrow-right"></i> Continuar
+                </button>
+              </div>
+              
+              <!-- Resultado final -->
+              <div *ngIf="juegoTerminado()" class="mt-4">
+                <div class="alert alert-info">
+                  <h4><i class="pi pi-flag"></i> ¡Juego terminado!</h4>
+                  <p class="mb-0">Puntaje final: <strong>{{puntaje()}}</strong> puntos</p>
+                </div>
+                
+                <button class="btn btn-primary me-2" (click)="iniciarJuego()">
+                  <i class="pi pi-refresh"></i> Jugar de nuevo
+                </button>
+                <button class="btn btn-secondary" (click)="volverAlHome()">
+                  <i class="pi pi-home"></i> Volver al inicio
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

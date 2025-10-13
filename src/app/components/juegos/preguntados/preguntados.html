@@ -1,0 +1,91 @@
+<div class="juego-container">
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center">
+              <h3><i class="pi pi-question-circle"></i> Preguntados</h3>
+              <p class="mb-0">Pregunta {{preguntaNumero()}}/{{totalPreguntas()}} | Puntaje: {{puntaje()}}</p>
+            </div>
+            
+            <div class="card-body">
+              <!-- Cargando -->
+              <div *ngIf="cargando()" class="text-center py-5">
+                <i class="pi pi-spin pi-spinner" style="font-size: 3rem;"></i>
+                <p class="mt-3">Cargando pregunta...</p>
+              </div>
+              
+              <!-- Pregunta -->
+              <div *ngIf="!cargando() && !juegoTerminado() && preguntaActual()">
+                <!-- Imagen -->
+                <div class="text-center mb-4">
+                  <img [src]="preguntaActual()!.imagen" 
+                       alt="Imagen de la pregunta" 
+                       class="img-pregunta">
+                </div>
+                
+                <!-- Pregunta -->
+                <h4 class="text-center mb-4">{{preguntaActual()!.pregunta}}</h4>
+                
+                <!-- Respuestas -->
+                <div class="row g-3">
+                  <div class="col-md-6" *ngFor="let respuesta of preguntaActual()!.respuestas">
+                    <div class="respuesta-card" 
+                         [class.seleccionada]="respuestaSeleccionada() === respuesta"
+                         [class.correcta]="mostrarResultado() && respuesta === preguntaActual()!.respuestaCorrecta"
+                         [class.incorrecta]="mostrarResultado() && respuestaSeleccionada() === respuesta && respuesta !== preguntaActual()!.respuestaCorrecta"
+                         (click)="!mostrarResultado() && respuestaSeleccionada.set(respuesta)">
+                      <div class="respuesta-contenido">
+                        <input type="radio" 
+                               [checked]="respuestaSeleccionada() === respuesta"
+                               [disabled]="mostrarResultado()"
+                               class="me-2">
+                        <span>{{respuesta}}</span>
+                        <i *ngIf="mostrarResultado() && respuesta === preguntaActual()!.respuestaCorrecta" 
+                           class="pi pi-check-circle text-success ms-auto"></i>
+                        <i *ngIf="mostrarResultado() && respuestaSeleccionada() === respuesta && respuesta !== preguntaActual()!.respuestaCorrecta" 
+                           class="pi pi-times-circle text-danger ms-auto"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Botón verificar -->
+                <div class="text-center mt-4" *ngIf="!mostrarResultado()">
+                  <button class="btn btn-primary btn-lg" 
+                          (click)="verificarRespuesta()"
+                          [disabled]="!respuestaSeleccionada()">
+                    <i class="pi pi-check"></i> Verificar Respuesta
+                  </button>
+                </div>
+                
+                <!-- Resultado -->
+                <div *ngIf="mostrarResultado()" class="text-center mt-4">
+                  <div class="alert" [class.alert-success]="esCorrecta()" [class.alert-danger]="!esCorrecta()">
+                    <h5 *ngIf="esCorrecta()">¡Correcto! +20 puntos</h5>
+                    <h5 *ngIf="!esCorrecta()">Incorrecto. La respuesta correcta era: {{preguntaActual()!.respuestaCorrecta}}</h5>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Resultado final -->
+              <div *ngIf="juegoTerminado()" class="text-center">
+                <div class="alert alert-info">
+                  <h4><i class="pi pi-flag"></i> ¡Juego terminado!</h4>
+                  <p class="mb-0">Puntaje final: <strong>{{puntaje()}}</strong>/{{totalPreguntas() * 20}}</p>
+                  <p class="mb-0">Preguntas correctas: {{puntaje() / 20}}/{{totalPreguntas()}}</p>
+                </div>
+                
+                <button class="btn btn-primary me-2" (click)="iniciarJuego()">
+                  <i class="pi pi-refresh"></i> Jugar de nuevo
+                </button>
+                <button class="btn btn-secondary" (click)="volverAlHome()">
+                  <i class="pi pi-home"></i> Volver al inicio
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
