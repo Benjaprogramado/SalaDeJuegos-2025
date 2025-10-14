@@ -1,13 +1,15 @@
 import { Routes } from '@angular/router';
 import { adminGuard } from './guards/admin.guard';
+import { usersGuard } from './guards/users.guard';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
     
 
     { 
       path: 'home', 
-      loadComponent: () => import('./components/home/home').then(m => m.Home)
+      loadComponent: () => import('./components/home/home').then(m => m.Home),
+      canActivate: [usersGuard] 
     },
     { 
       path: 'login', 
@@ -20,20 +22,24 @@ export const routes: Routes = [
     { 
       path: 'juegos', 
       loadChildren: () => import('./components/juegos/juegos.module')
-        .then(m => m.JuegosModule)
+        .then(m => m.JuegosModule),
+        canActivate: [usersGuard] 
     },
     { 
        path: 'chat', 
        loadComponent: () => import('./components/chat/chat')
-         .then(m => m.ChatComponent)
+         .then(m => m.ChatComponent),
+         canActivate: [usersGuard] 
     },
      {path: 'resultados', 
       loadComponent: () => import('./components/resultados/resultados')
-        .then(m => m.ResultadosComponent)
+        .then(m => m.ResultadosComponent),
+        canActivate: [usersGuard] 
     },
      {path: 'encuesta', 
       loadComponent: () => import('./components/encuesta/encuesta')
-        .then(m => m.EncuestaComponent)
+        .then(m => m.EncuestaComponent),
+        canActivate: [usersGuard] 
     },
     {
        path: 'admin/encuestas', 
