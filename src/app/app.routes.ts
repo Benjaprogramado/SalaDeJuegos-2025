@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -50,5 +51,12 @@ export const routes: Routes = [
       loadComponent: () => import('./components/encuesta/encuesta')
         .then(m => m.EncuestaComponent)
      },
+    {
+       path: 'admin/encuestas', 
+       loadComponent: () => import('./components/admin-encuestas/admin-encuestas')
+         .then(m => m.AdminEncuestasComponent),
+       canActivate: [adminGuard] 
+     },
+     
     { path: '**', redirectTo: '/home' }
 ];

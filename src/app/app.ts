@@ -15,6 +15,7 @@ export class App implements OnInit, OnDestroy {
   protected readonly title = signal('sala-de-juegos');
   private userSignal = signal<any>(null);
   private authSubscription?: Subscription;
+  navbarCollapsed = signal(true);
 
   constructor(private auth: Auth, private router: Router, private alertService: AlertService) {
     // Suscribirse al estado de autenticación en el constructor (contexto de inyección)
@@ -40,6 +41,16 @@ export class App implements OnInit, OnDestroy {
     return this.userSignal();
   }
 
+  // Método para toggle del navbar
+  toggleNavbar() {
+    this.navbarCollapsed.set(!this.navbarCollapsed());
+  }
+
+  // Método para cerrar el navbar cuando se hace click en un link
+  closeNavbar() {
+    this.navbarCollapsed.set(true);
+  }
+
   // Método para logout
   async logout(): Promise<void> {
     const result = await this.alertService.confirm('¿Cerrar sesión?', '¿Estás seguro?');
@@ -48,6 +59,7 @@ export class App implements OnInit, OnDestroy {
         await signOut(this.auth);
         this.alertService.success('Sesión cerrada', 'Hasta pronto');
         this.router.navigate(['/login']);
+        this.closeNavbar();
       } catch (error) {
         this.alertService.error('Error', 'No se pudo cerrar sesión');
       }

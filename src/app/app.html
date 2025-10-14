@@ -5,14 +5,14 @@
         <i class="pi pi-gamepad-2"></i> Sala de Juegos
       </a>
       
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
         <span class="navbar-toggler-icon"></span>
       </button>
       
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse" id="navbarNav" [class.show]="!navbarCollapsed()">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/quien-soy" routerLinkActive="active">
+            <a class="nav-link" routerLink="/quien-soy" routerLinkActive="active" (click)="closeNavbar()">
               <i class="pi pi-user"></i> Quién Soy
             </a>
           </li>
@@ -28,7 +28,7 @@
           </li>
           
           <li class="nav-item" *ngIf="!user()">
-            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+            <a class="nav-link" routerLink="/login" routerLinkActive="active" (click)="closeNavbar()">Login</a>
           </li>
           <!-- <li class="nav-item" *ngIf="!user()">
             <a class="nav-link" routerLink="/registro" routerLinkActive="active">Registro</a>

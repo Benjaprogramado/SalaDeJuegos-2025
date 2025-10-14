@@ -1,10 +1,11 @@
 import { Component, OnInit, signal, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Auth, authState, signOut } from '@angular/fire/auth';
+import { Auth, authState, signOut, onAuthStateChanged } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../../services/alert';
+import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { AlertService } from '../../services/alert';
 export class Home implements OnInit, OnDestroy {
   user = signal<any>(null);
   private authSubscription?: Subscription;
+  esAdministrador = signal<boolean>(false);
   
   juegos = signal([
     {
@@ -44,26 +46,27 @@ export class Home implements OnInit, OnDestroy {
     }
   ]);
 
-  constructor(private auth: Auth, private router: Router, private alertService: AlertService) {
-    // Usar authState() observable en el constructor (contexto de inyección)
-    this.authSubscription = authState(this.auth).subscribe((user) => {
-      this.user.set(user);
-      console.log('Usuario actual:', user);
-      if (!user) {
-        this.router.navigate(['/login']);
+  constructor(
+    private auth: Auth, 
+    private router: Router, 
+    private alertService: AlertService, 
+    private firestore: Firestore) 
+    {}
+
+  ngOnInit() {
+    onAuthStateChanged(this.auth, async (user) => {
+      if (user && user.email) {
+        this.user.set(user.email);
+        await this.verificarRolAdmin(user.email);
+      } else {
+        this.user.set(null);
+        this.esAdministrador.set(false);
       }
     });
   }
 
-  ngOnInit() {
-    // Hook de ciclo de vida vacío - la suscripción ya está en el constructor
-  }
-
   ngOnDestroy() {
-    // Limpiar la suscripción cuando el componente se destruye
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
-    }
+    this.authSubscription?.unsubscribe();
   }
 
   async logout() {
@@ -81,6 +84,22 @@ export class Home implements OnInit, OnDestroy {
 
   navegarAJuego(ruta: string) {
     this.router.navigate([ruta]);
+  }
+
+  async verificarRolAdmin(email: string) {
+    try {
+      const userDocRef = doc(this.firestore, 'users', email);
+      const userDoc = await getDoc(userDocRef);
+      
+      if (userDoc.exists() && userDoc.data()['rol'] === 'admin') {
+        this.esAdministrador.set(true);
+      } else {
+        this.esAdministrador.set(false);
+      }
+    } catch (error) {
+      console.error('Error al verificar rol:', error);
+      this.esAdministrador.set(false);
+    }
   }
 }
 
