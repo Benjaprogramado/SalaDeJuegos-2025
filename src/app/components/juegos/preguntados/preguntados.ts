@@ -1,6 +1,4 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JuegosService } from '../../../services/juegos';
 import { AlertService } from '../../../services/alert';
@@ -15,8 +13,7 @@ interface Pregunta {
 
 @Component({
   selector: 'app-preguntados',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
+  standalone: false,
   templateUrl: './preguntados.html',
   styleUrl: './preguntados.css'
 })

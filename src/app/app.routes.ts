@@ -17,46 +17,30 @@ export const routes: Routes = [
       path: 'quien-soy', 
       loadComponent: () => import('./components/quien-soy/quien-soy').then(m => m.QuienSoy)
     },
-    
     { 
-      path: 'juegos/ahorcado', 
-      loadComponent: () => import('./components/juegos/ahorcado/ahorcado')
-        .then(m => m.AhorcadoComponent)
-    },
-     { 
-       path: 'juegos/mayor-menor', 
-       loadComponent: () => import('./components/juegos/mayor-menor/mayor-menor')
-        .then(m => m.MayorMenorComponent)
+      path: 'juegos', 
+      loadChildren: () => import('./components/juegos/juegos.module')
+        .then(m => m.JuegosModule)
     },
     { 
-       path: 'juegos/preguntados', 
-       loadComponent: () => import('./components/juegos/preguntados/preguntados')
-         .then(m => m.PreguntadosComponent)
-     },
-    { 
-       path: 'juegos/adivinador', 
-       loadComponent: () => import('./components/juegos/adivinador/adivinador')
-         .then(m => m.AdivinadorComponent)
-     },
-     { 
        path: 'chat', 
        loadComponent: () => import('./components/chat/chat')
          .then(m => m.ChatComponent)
-     },
+    },
      {path: 'resultados', 
       loadComponent: () => import('./components/resultados/resultados')
         .then(m => m.ResultadosComponent)
-     },
+    },
      {path: 'encuesta', 
       loadComponent: () => import('./components/encuesta/encuesta')
         .then(m => m.EncuestaComponent)
-     },
+    },
     {
        path: 'admin/encuestas', 
        loadComponent: () => import('./components/admin-encuestas/admin-encuestas')
          .then(m => m.AdminEncuestasComponent),
        canActivate: [adminGuard] 
-     },
+    },
      
     { path: '**', redirectTo: '/home' }
 ];

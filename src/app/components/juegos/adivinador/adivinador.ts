@@ -1,14 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JuegosService } from '../../../services/juegos';
 import { AlertService } from '../../../services/alert';
 
 @Component({
   selector: 'app-adivinador',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
+  standalone: false,
   templateUrl: './adivinador.html',
   styleUrl: './adivinador.css'
 })

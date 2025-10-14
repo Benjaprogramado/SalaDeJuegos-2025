@@ -1,5 +1,4 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { JuegosService } from '../../../services/juegos';
 import { AlertService } from '../../../services/alert';
@@ -13,8 +12,7 @@ interface Carta {
 
 @Component({
   selector: 'app-mayor-menor',
-  standalone: true,
-  imports: [CommonModule],
+  standalone: false,
   templateUrl: './mayor-menor.html',
   styleUrl: './mayor-menor.css'
 })
