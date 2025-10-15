@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AlertService } from '../../services/alert';
-
+import {LogsService} from '../../services/logs';
 
 @Component({
   selector: 'app-login',
@@ -19,12 +19,13 @@ export class Login {
   isLoginMode = signal(true);
   loading = signal(false);
 
-  constructor(private auth: Auth, private router: Router, private alertService: AlertService) {}
+  constructor(private auth: Auth, private router: Router, private alertService: AlertService, private logsService: LogsService) {}
 
   async login() {
     this.loading.set(true);
     try {
       await signInWithEmailAndPassword(this.auth, this.email(), this.password());
+      await this.logsService.registrarLog(this.email(), 'Login', 'Inicio de sesión exitoso');
       await this.alertService.success('¡Bienvenido!', 'Has iniciado sesión correctamente');
       this.router.navigate(['/home']);
     } catch (error: any) {
@@ -40,6 +41,7 @@ export class Login {
     this.loading.set(true);
     try {
       await createUserWithEmailAndPassword(this.auth, this.email(), this.password());
+      await this.logsService.registrarLog(this.email(), 'Registro', 'Registro de usuario exitoso');
       await this.alertService.success('¡Bienvenido!', 'Te has registrado correctamente');
       this.router.navigate(['/home']);
     } catch (error: any) {
